@@ -1,0 +1,94 @@
+# voting_system_config.py
+
+import os
+from dotenv import load_dotenv
+
+# Sample voting_contract_abi.json structure (the actual ABI would be generated when compiling the Solidity contract)
+voting_contract_abi = [
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": False,
+        "inputs": [
+            {
+                "indexed": True,
+                "internalType": "string",
+                "name": "electionId",
+                "type": "string"
+            },
+            {
+                "indexed": False,
+                "internalType": "string",
+                "name": "title",
+                "type": "string"
+            },
+            {
+                "indexed": False,
+                "internalType": "uint256",
+                "name": "startTime",
+                "type": "uint256"
+            },
+            {
+                "indexed": False,
+                "internalType": "uint256",
+                "name": "endTime",
+                "type": "uint256"
+            }
+        ],
+        "name": "ElectionCreated",
+        "type": "event"
+    },
+    # ... Other event and function definitions would be here
+]
+
+# Save the ABI to a file
+import json
+with open('voting_contract_abi.json', 'w') as f:
+    json.dump(voting_contract_abi, f)
+
+# Sample .env file content
+env_template = """
+# Blockchain Configuration
+INFURA_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
+CHAIN_ID=11155111  # Sepolia testnet
+PRIVATE_KEY=your_private_key_here
+CONTRACT_ADDRESS=0x1234567890123456789012345678901234567890
+
+# Flask Configuration
+SECRET_KEY=your_secret_key_here
+FLASK_ENV=development
+DEBUG=True
+
+# Database Configuration (for production)
+DB_HOST=localhost
+DB_USER=voting_admin
+DB_PASSWORD=secure_password
+DB_NAME=blockchain_voting
+"""
+
+# Write sample .env file (for development purposes)
+with open('.env.sample', 'w') as f:
+    f.write(env_template)
+
+print("Configuration files created successfully!")
+print("Remember to create a real .env file with your actual credentials and never commit it to version control.")
+
+# Requirements.txt
+requirements = """
+flask==2.0.1
+flask-cors==3.0.10
+web3==5.31.1
+pyjwt==2.3.0
+python-dotenv==0.19.2
+gunicorn==20.1.0
+requests==2.27.1
+eth-account==0.5.9
+"""
+
+with open('requirements.txt', 'w') as f:
+    f.write(requirements)
+
+print("Requirements file created. Install dependencies with: pip install -r requirements.txt")
